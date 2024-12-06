@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -140,6 +141,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildTotalPendapatanCard(),
+          _chartPendapatan(),
         ],
       ),
     );
@@ -627,6 +629,212 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  final List<BarChartGroupData> barChartData = [
+    BarChartGroupData(x: 0, barRods: [
+      BarChartRodData(
+        toY: 140000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 1, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 2, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 3, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 4, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 5, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 6, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 7, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 8, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 9, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 10, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 12, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 11, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 13, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+    BarChartGroupData(x: 15, barRods: [
+      BarChartRodData(
+        toY: 100000,
+        color: Color(0xFF7EB7A6),
+        width: 10,
+        borderRadius: BorderRadius.zero,
+      ),
+    ]),
+  ];
+
+  Widget _chartPendapatan() {
+    double maxY =
+        150000; // Tentukan batas atas sumbu Y lebih tinggi dari data tertinggi
+    double minY = 0; // Tentukan batas bawah sumbu Y (bisa disesuaikan)
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Grafik Pendapatan",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 24.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal, // Menambahkan scroll horizontal
+            child: Container(
+              width: barChartData.length *
+                  30.0, // Tentukan lebar sesuai dengan banyaknya data
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: BarChart(
+                  BarChartData(
+                    gridData: FlGridData(show: true),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                            showTitles: false), // Menghilangkan label kanan
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: true),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (value, titleMeta) {
+                            // Menampilkan angka penuh tanpa singkatan
+                            return Text(
+                              value.toStringAsFixed(
+                                  0), // Angka penuh tanpa format singkatan
+                              style: TextStyle(fontSize: 10),
+                            );
+                          },
+                          reservedSize:
+                              40, // Menyesuaikan ukuran ruang kiri untuk label
+                        ),
+                      ),
+                    ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border(
+                        bottom: BorderSide(
+                            color: Colors.black, width: 1), // garis bawah
+                        left: BorderSide(
+                            color: Colors.black, width: 1), // garis kiri
+                        right: BorderSide.none, // menghilangkan garis kanan
+                        top: BorderSide.none, // menghilangkan garis atas
+                      ),
+                    ),
+                    barGroups: barChartData, // Menyisipkan data chart batang
+                    minY: minY, // Menetapkan batas bawah sumbu Y
+                    maxY: maxY, // Menetapkan batas atas sumbu Y
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
