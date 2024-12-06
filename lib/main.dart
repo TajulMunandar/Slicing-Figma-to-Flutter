@@ -48,7 +48,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
           Expanded(
             child: IndexedStack(
               index: _selectedTabIndex,
-              children: List.generate(4, (index) => _buildPendapatanContent(index)),
+              children:
+                  List.generate(4, (index) => _buildPendapatanContent(index)),
             ),
           ),
         ],
@@ -64,8 +65,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            _buildTabButton("Pendapatan", 0, "assets/icons/wallet.png"),
             _buildTabButton("LHR Tertimbang", 1, "assets/icons/tertimbang.png"),
+            _buildTabButton("Pendapatan", 0, "assets/icons/wallet.png"),
             _buildTabButton("VLL", 2, "assets/icons/vll.png"),
             _buildTabButton("LHR Persegmen", 3, "assets/icons/segmen.png"),
           ],
@@ -218,6 +219,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Pastikan Row dipusatkan
             children: [
               const Expanded(
                 child: Column(
@@ -231,7 +235,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
                       "Rp. 60.603.596.000,-",
                       style: TextStyle(
@@ -243,9 +246,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ],
                 ),
               ),
-              Container(
-                width: 1,
-                color: Colors.white,
+              // Pastikan Divider tidak terbungkus Expanded
+              const SizedBox(
+                height: 50, // Sesuaikan tinggi divider
+                child: VerticalDivider(
+                  color: Color(0xff004643), // Warna garis
+                  thickness: 0.3, // Ketebalan garis
+                  width: 16, // Jarak horizontal di sekitar divider
+                ),
               ),
               const Expanded(
                 child: Column(
@@ -259,7 +267,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
                       "Rp. 1.954.954.710,-",
                       style: TextStyle(
@@ -283,77 +290,162 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Container(
       color: const Color(0xFFABD1C6), // Background color
       padding: const EdgeInsets.all(16.0),
-      child: const Card(
-        color: Color(0xFFFFFFFF), // Card background color
+      child: Card(
+        color: const Color(0xFFFFFFFF),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center, // Top align the content
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center, // Left align the text
-                  children: [
-                    Text(
-                      "JUMLAH LHR TERTIMBANG",
-                      style: TextStyle(
-                        color: Color(0xff004643),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
+              // Baris pertama
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "JUMLAH LHR TERTIMBANG",
+                          style: TextStyle(
+                            color: Color(0xff004643),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 10,
+                          ),
+                        ),
+                        Text(
+                          "145.880",
+                          style: TextStyle(
+                            color: Color(0xff001E1D),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "Kendaraan",
+                          style: TextStyle(
+                            color: Color(0xFF7EB7A6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      "145.880",
-                      style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 50, // Tinggi divider
+                    child: VerticalDivider(
+                      color: Color(0xff004643), // Warna garis
+                      thickness: 0.3, // Ketebalan garis
+                      width: 16, // Jarak horizontal
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Kendaraan",
-                      style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontSize: 12,
-                      ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "LHR TERTIMBANG TERATA",
+                          style: TextStyle(
+                            color: Color(0xff004643),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 10,
+                          ),
+                        ),
+                        Text(
+                          "145.880",
+                          style: TextStyle(
+                            color: Color(0xff001E1D),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "Kendaraan",
+                          style: TextStyle(
+                            color: Color(0xFF7EB7A6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(width: 16.0), // Add spacing between columns
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // Left align the text
-                  children: [
-                    Text(
-                      "RKAP (2024)",
-                      style: TextStyle(
-                        color: Color(0xff004643),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
+              const SizedBox(height: 16), // Jarak antar baris
+              // Baris kedua
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "RKAP (2024)",
+                          style: TextStyle(
+                            color: Color(0xff004643),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "145.880",
+                          style: TextStyle(
+                            color: Color(0xff001E1D),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "Kendaraan",
+                          style: TextStyle(
+                            color: Color(0xFF7EB7A6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      "145.880",
-                      style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 50, // Tinggi divider
+                    child: VerticalDivider(
+                      color: Color(0xff004643), // Warna garis
+                      thickness: 0.3, // Ketebalan garis
+                      width: 16, // Jarak horizontal
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Kendaraan",
-                      style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontSize: 12,
-                      ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "PPJT (2024)",
+                          style: TextStyle(
+                            color: Color(0xff004643),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "145.880",
+                          style: TextStyle(
+                            color: Color(0xff001E1D),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          "Kendaraan",
+                          style: TextStyle(
+                            color: Color(0xFF7EB7A6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -378,18 +470,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "VLL",
+                      "VOLUME LHR",
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
-                      "160.000",
+                      "145.880",
                       style: TextStyle(
                         color: Color(0xff001E1D),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      "KENDARAAN",
+                      style: TextStyle(
+                        color: Color(0xFF7EB7A6),
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
@@ -397,27 +496,38 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ],
                 ),
               ),
-              Container(
-                width: 1,
-                color: Colors.white,
+              const SizedBox(
+                height: 50, // Tinggi divider
+                child: VerticalDivider(
+                  color: Color(0xff004643), // Warna garis
+                  thickness: 0.3, // Ketebalan garis
+                  width: 16, // Jarak horizontal
+                ),
               ),
               const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "VLL (RKAP)",
+                      "JUMLAH VOL LHR",
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
                       "145.880",
                       style: TextStyle(
                         color: Color(0xff001E1D),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      "KENDARAAN",
+                      style: TextStyle(
+                        color: Color(0xFF7EB7A6),
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
@@ -448,47 +558,65 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "LHR PERSEGEMEN",
+                      "JUMLAH LHR PERSEGEMEN",
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
+                        fontSize: 10,
+                      ),
+                    ),
+                    Text(
+                      "145.880",
+                      style: TextStyle(
+                        color: Color(0xff001E1D),
+                        fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
-                      "12.876",
+                      "KENDARAAN",
                       style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF7EB7A6),
+                        fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                width: 1,
-                color: Colors.white,
+              const SizedBox(
+                height: 50, // Tinggi divider
+                child: VerticalDivider(
+                  color: Color(0xff004643), // Warna garis
+                  thickness: 0.3, // Ketebalan garis
+                  width: 16, // Jarak horizontal
+                ),
               ),
               const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "LHR PERSEGEMEN (RKAP)",
+                      "RERATA LHR PERSEGEMEN",
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
+                        fontSize: 10,
+                      ),
+                    ),
+                    Text(
+                      "145.880",
+                      style: TextStyle(
+                        color: Color(0xff001E1D),
+                        fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Text(
-                      "12.876",
+                      "KENDARAAN",
                       style: TextStyle(
-                        color: Color(0xff001E1D),
-                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF7EB7A6),
+                        fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
                     ),
