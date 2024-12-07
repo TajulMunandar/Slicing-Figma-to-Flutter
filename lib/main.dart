@@ -141,7 +141,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildTotalPendapatanCard(),
-          _chartPendapatan(context, setState),
+          _chartPendapatan(
+              context, setState, "GRAFIK PENDAPATAN", "Golongan Tol"),
+          _dataPendapatan(),
+          _cardDownload(),
         ],
       ),
     );
@@ -154,6 +157,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildLHRTertimbangCard(),
+          _chartPendapatan(
+              context, setState, "GARFIK LHR TERTIMBANG", "Golongan"),
+          _dataTertimbang(),
+          _cardDownload(),
         ],
       ),
     );
@@ -166,6 +173,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildVLLCard(),
+          _chartPendapatan(
+              context, setState, "GRAFIK VOLUME LALU LINTAS", "Golongan"),
+          _buildSegmentGrid(),
+          _cardDownload(),
         ],
       ),
     );
@@ -178,6 +189,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildLHRPersegmenCard(),
+          _chartPendapatan(
+              context, setState, "GRAFIK LHR PERSEGEMEN", "Golongan"),
+          _dataSegmen(),
+          _cardDownload(),
         ],
       ),
     );
@@ -186,7 +201,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
   Widget _buildDateNavigator() {
     return Container(
       color: const Color(0xFFABD1C6),
-      padding: const EdgeInsets.all(16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -198,7 +212,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ),
           const Text(
             "Agustus 2024",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           IconButton(
             onPressed: () {
@@ -216,16 +230,16 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Container(
       color: const Color(0xFFABD1C6),
       padding: const EdgeInsets.all(16.0),
-      child: Card(
-        color: const Color(0xFFFFFFFF),
+      child: const Card(
+        color: Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment:
                 MainAxisAlignment.center, // Pastikan Row dipusatkan
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -249,7 +263,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ),
               ),
               // Pastikan Divider tidak terbungkus Expanded
-              const SizedBox(
+              SizedBox(
                 height: 50, // Sesuaikan tinggi divider
                 child: VerticalDivider(
                   color: Color(0xff004643), // Warna garis
@@ -257,7 +271,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   width: 16, // Jarak horizontal di sekitar divider
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -292,10 +306,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Container(
       color: const Color(0xFFABD1C6), // Background color
       padding: const EdgeInsets.all(16.0),
-      child: Card(
-        color: const Color(0xFFFFFFFF),
+      child: const Card(
+        color: Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
               // Baris pertama
@@ -304,13 +318,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "JUMLAH LHR TERTIMBANG",
                           style: TextStyle(
                             color: Color(0xff004643),
                             fontWeight: FontWeight.w600,
-                            fontSize: 10,
+                            fontSize: 9,
                           ),
                         ),
                         Text(
@@ -322,17 +336,17 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           ),
                         ),
                         Text(
-                          "Kendaraan",
+                          "KENDARAAN",
                           style: TextStyle(
                             color: Color(0xFF7EB7A6),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 10,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 50, // Tinggi divider
                     child: VerticalDivider(
                       color: Color(0xff004643), // Warna garis
@@ -343,7 +357,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "LHR TERTIMBANG TERATA",
                           style: TextStyle(
@@ -361,7 +375,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           ),
                         ),
                         Text(
-                          "Kendaraan",
+                          "KENDARAAN",
                           style: TextStyle(
                             color: Color(0xFF7EB7A6),
                             fontWeight: FontWeight.w500,
@@ -373,14 +387,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16), // Jarak antar baris
+              SizedBox(height: 16), // Jarak antar baris
               // Baris kedua
               Row(
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "RKAP (2024)",
                           style: TextStyle(
@@ -398,7 +412,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           ),
                         ),
                         Text(
-                          "Kendaraan",
+                          "KENDARAAN",
                           style: TextStyle(
                             color: Color(0xFF7EB7A6),
                             fontWeight: FontWeight.w500,
@@ -408,7 +422,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 50, // Tinggi divider
                     child: VerticalDivider(
                       color: Color(0xff004643), // Warna garis
@@ -419,7 +433,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "PPJT (2024)",
                           style: TextStyle(
@@ -437,7 +451,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           ),
                         ),
                         Text(
-                          "Kendaraan",
+                          "KENDARAAN",
                           style: TextStyle(
                             color: Color(0xFF7EB7A6),
                             fontWeight: FontWeight.w500,
@@ -461,13 +475,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Container(
       color: const Color(0xFFABD1C6),
       padding: const EdgeInsets.all(16.0),
-      child: Card(
-        color: const Color(0xFFFFFFFF),
+      child: const Card(
+        color: Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -483,7 +497,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       "145.880",
                       style: TextStyle(
                         color: Color(0xff001E1D),
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
                     ),
@@ -491,14 +505,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       "KENDARAAN",
                       style: TextStyle(
                         color: Color(0xFF7EB7A6),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 50, // Tinggi divider
                 child: VerticalDivider(
                   color: Color(0xff004643), // Warna garis
@@ -506,7 +520,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   width: 16, // Jarak horizontal
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -530,8 +544,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       "KENDARAAN",
                       style: TextStyle(
                         color: Color(0xFF7EB7A6),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
                       ),
                     ),
                   ],
@@ -549,13 +563,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Container(
       color: const Color(0xFFABD1C6),
       padding: const EdgeInsets.all(16.0),
-      child: Card(
-        color: const Color(0xFFFFFFFF),
+      child: const Card(
+        color: Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -564,14 +578,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
-                        fontSize: 10,
+                        fontSize: 9,
                       ),
                     ),
                     Text(
                       "145.880",
                       style: TextStyle(
                         color: Color(0xff001E1D),
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
                     ),
@@ -579,14 +593,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       "KENDARAAN",
                       style: TextStyle(
                         color: Color(0xFF7EB7A6),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 50, // Tinggi divider
                 child: VerticalDivider(
                   color: Color(0xff004643), // Warna garis
@@ -594,7 +608,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   width: 16, // Jarak horizontal
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -603,14 +617,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       style: TextStyle(
                         color: Color(0xff004643),
                         fontWeight: FontWeight.w600,
-                        fontSize: 10,
+                        fontSize: 9,
                       ),
                     ),
                     Text(
                       "145.880",
                       style: TextStyle(
                         color: Color(0xff001E1D),
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
                     ),
@@ -618,8 +632,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       "KENDARAAN",
                       style: TextStyle(
                         color: Color(0xFF7EB7A6),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
                       ),
                     ),
                   ],
@@ -632,131 +646,34 @@ class _TransactionScreenState extends State<TransactionScreen> {
     );
   }
 
-  final List<BarChartGroupData> barChartData = [
-    BarChartGroupData(x: 0, barRods: [
-      BarChartRodData(
-        toY: 140000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 1, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 2, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 3, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 4, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 5, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 6, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 7, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 8, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 9, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 10, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 12, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 11, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 13, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-    BarChartGroupData(x: 15, barRods: [
-      BarChartRodData(
-        toY: 100000,
-        color: Color(0xFF7EB7A6),
-        width: 10,
-        borderRadius: BorderRadius.zero,
-      ),
-    ]),
-  ];
-
   bool isDropdownOpen = false;
   bool isSearching = false;
+
+  int? touchedIndex;
+  double? selectedValue; // Nilai dari bar yang ditekan
+  final List<double> barData = [
+    120000,
+    100000,
+    150000,
+    130000,
+    90000,
+    110000,
+    80000,
+    140000,
+    95000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+    125000,
+  ];
 
   TextEditingController searchController = TextEditingController();
 
@@ -770,22 +687,23 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return filters.where((filter) => filter["value"] == true).length;
   }
 
-  Widget _chartPendapatan(BuildContext context, StateSetter setState) {
-    double maxY =
-        150000; // Tentukan batas atas sumbu Y lebih tinggi dari data tertinggi
-    double minY = 0; // Tentukan batas bawah sumbu Y (bisa disesuaikan)
+  bool isFullScreen = false;
 
+  String judulGrafik = "Grafik Pendapatan";
+
+  Widget _chartPendapatan(BuildContext context, StateSetter setState,
+      String judulGrafik, String Select) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            "Grafik Pendapatan",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF004643)),
+            judulGrafik,
+            style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF004643)),
           ),
         ),
         const SizedBox(
@@ -804,7 +722,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
             child: Container(
               width: 200,
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF7EB7A6)),
+                border: Border.all(color: const Color(0xFF7EB7A6)),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               padding:
@@ -817,18 +735,18 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   // Menampilkan teks atau input pencarian
                   if (!isSearching)
                     Text(
-                      "Gerbang Tol",
-                      style: TextStyle(fontSize: 14),
+                      Select,
+                      style: const TextStyle(fontSize: 14),
                     ),
                   if (isSearching)
                     Flexible(
                       fit: FlexFit
                           .loose, // Memberikan fleksibilitas tanpa memaksa
-                      child: Container(
+                      child: SizedBox(
                         height: 20, // Atur tinggi Container sesuai kebutuhan
                         child: TextField(
                           controller: searchController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Cari Gerbang...',
                             prefixIcon: Icon(
                               Icons.search,
@@ -842,9 +760,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             fillColor: Color(0xFF7EB7A6),
                             hoverColor: Color(0xFF7EB7A6),
                           ),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize:
-                                14, // Mengatur ukuran font teks di dalam TextField
+                                12, // Mengatur ukuran font teks di dalam TextField
                           ),
                           onChanged: (text) {
                             setState(() {});
@@ -857,13 +775,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   if (getSelectedCount() > 0)
                     Container(
                       padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${getSelectedCount()}',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
                       ),
                     ),
                   Icon(
@@ -876,10 +795,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
             ),
           ),
         ),
+        const SizedBox(
+          height: 4,
+        ),
         if (isDropdownOpen)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Container(
+              width: 270,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8.0),
@@ -895,8 +818,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                               "List Gerbang " + "(${getSelectedCount()})",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.grey)),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey)),
                         ),
                         if (getSelectedCount() > 0)
                           Padding(
@@ -908,9 +831,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                       (filter) => filter["value"] = false);
                                 });
                               },
-                              child: Text("Hapus Semua",
+                              child: const Text("Hapus Semua",
                                   style: TextStyle(
-                                      fontSize: 14, color: Colors.red)),
+                                      fontSize: 12, color: Colors.red)),
                             ),
                           ),
                         if (getSelectedCount() == 0)
@@ -923,43 +846,65 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                       (filter) => filter["value"] = true);
                                 });
                               },
-                              child: Text("Pilih Semua",
+                              child: const Text("Pilih Semua",
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      color: const Color(0xFF004643))),
+                                      fontSize: 12, color: Color(0xFF004643))),
                             ),
                           ),
                       ],
                     ),
-                    Divider(), // Divider yang menjadi pemisah
+                    const Divider(), // Divider yang menjadi pemisah
 
                     // List Filter
-                    Column(
-                      children: filters
-                          .where((filter) => filter["label"]
-                              .toLowerCase()
-                              .contains(searchController.text.toLowerCase()))
-                          .map((filter) {
-                        return CheckboxListTile(
-                          value: filter["value"],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              filter["value"] = value ?? false;
-                            });
-                          },
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(filter["label"]),
-                            ],
+                    filters
+                            .where((filter) => filter["label"]
+                                .toLowerCase()
+                                .contains(searchController.text.toLowerCase()))
+                            .isEmpty
+                        // Jika tidak ada hasil pencarian
+                        ? const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Data tidak ditemukan', // Pesan jika tidak ada hasil
+                              style: TextStyle(
+                                  fontSize: 16, color: Color(0xff3a3a3a)),
+                            ),
+                          )
+                        : Column(
+                            children: filters
+                                .where((filter) => filter["label"]
+                                    .toLowerCase()
+                                    .contains(
+                                        searchController.text.toLowerCase()))
+                                .map((filter) {
+                              return CheckboxListTile(
+                                value: filter["value"],
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    filter["value"] = value ?? false;
+                                  });
+                                },
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      filter["label"],
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xff001E1D)),
+                                    ),
+                                  ],
+                                ),
+                                activeColor: const Color(0xFF004643),
+                                tileColor: filter["value"]
+                                    ? const Color(0xFFF1FCF9)
+                                    : null,
+                                side:
+                                    const BorderSide(color: Color(0xFF004643)),
+                              );
+                            }).toList(),
                           ),
-                          activeColor: Color(
-                              0xFF004643), // Warna saat dicentang// Warna latar belakang saat tidak dicentang
-                          tileColor: filter["value"] ? Color(0xFFF1FCF9) : null,
-                          side: BorderSide(color: Color(0xFF004643)),
-                        );
-                      }).toList(),
-                    ),
                   ],
                 ),
               ),
@@ -971,65 +916,836 @@ class _TransactionScreenState extends State<TransactionScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 24.0),
           child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Menambahkan scroll horizontal
-            child: Container(
-              width: barChartData.length *
-                  30.0, // Tentukan lebar sesuai dengan banyaknya data
-              height: 230,
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: barData.length * 50.0,
+              height: isFullScreen
+                  ? MediaQuery.of(context).size.height
+                  : 230, // Fullscreen mode atau ukuran normal
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(16.0),
                 child: BarChart(
                   BarChartData(
-                    gridData: FlGridData(show: true),
+                    alignment: BarChartAlignment.spaceAround,
+                    barTouchData: BarTouchData(
+                      touchTooltipData: BarTouchTooltipData(
+                        // tooltipBgColor: Colors.black,
+                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                          return BarTooltipItem(
+                            'Nilai\n${rod.toY.toStringAsFixed(0)}',
+                            const TextStyle(color: Colors.white),
+                          );
+                        },
+                      ),
+                      touchCallback: (event, response) {
+                        setState(() {
+                          if (response != null && response.spot != null) {
+                            touchedIndex = response.spot!.touchedBarGroupIndex;
+                            selectedValue =
+                                barData[touchedIndex!]; // Simpan nilai
+                          } else {
+                            touchedIndex = null;
+                            selectedValue = null;
+                          }
+                        });
+                      },
+                    ),
                     titlesData: FlTitlesData(
                       show: true,
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                            showTitles: false), // Menghilangkan label kanan
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
                       ),
-                      bottomTitles: AxisTitles(
+                      bottomTitles: const AxisTitles(
                         sideTitles: SideTitles(showTitles: true),
                       ),
-                      topTitles: AxisTitles(
+                      topTitles: const AxisTitles(
                         sideTitles: SideTitles(showTitles: false),
                       ),
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
                           getTitlesWidget: (value, titleMeta) {
-                            // Menampilkan angka penuh tanpa singkatan
                             return Text(
-                              value.toStringAsFixed(
-                                  0), // Angka penuh tanpa format singkatan
-                              style: TextStyle(fontSize: 10),
+                              value.toStringAsFixed(0),
+                              style: const TextStyle(fontSize: 10),
                             );
                           },
-                          reservedSize:
-                              40, // Menyesuaikan ukuran ruang kiri untuk label
+                          reservedSize: 50,
                         ),
                       ),
                     ),
                     borderData: FlBorderData(
                       show: true,
-                      border: Border(
-                        bottom: BorderSide(
-                            color: Colors.black, width: 1), // garis bawah
-                        left: BorderSide(
-                            color: Colors.black, width: 1), // garis kiri
-                        right: BorderSide.none, // menghilangkan garis kanan
-                        top: BorderSide.none, // menghilangkan garis atas
+                      border: const Border(
+                        bottom: BorderSide(color: Colors.black, width: 1),
+                        left: BorderSide(color: Colors.black, width: 1),
+                        right: BorderSide.none,
+                        top: BorderSide.none,
                       ),
                     ),
-                    barGroups: barChartData, // Menyisipkan data chart batang
-                    minY: minY, // Menetapkan batas bawah sumbu Y
-                    maxY: maxY, // Menetapkan batas atas sumbu Y
+                    barGroups: barData.asMap().entries.map((entry) {
+                      final isTouched = entry.key == touchedIndex;
+                      return BarChartGroupData(
+                        x: entry.key,
+                        barRods: [
+                          BarChartRodData(
+                            toY: entry.value,
+                            color: Color(0xFF7EB7A6),
+                            width: 20,
+                            borderRadius: BorderRadius.zero,
+                            backDrawRodData:
+                                BackgroundBarChartRodData(show: true),
+                            borderSide: isTouched
+                                ? BorderSide(color: Colors.black, width: 2)
+                                : BorderSide.none,
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                    gridData: FlGridData(show: true),
+                    extraLinesData: selectedValue != null
+                        ? ExtraLinesData(horizontalLines: [
+                            HorizontalLine(
+                              y: selectedValue!, // Garis mengikuti nilai yang ditekan
+                              color: Colors.black,
+                              strokeWidth: 2,
+                              dashArray: [4, 4],
+                              label: HorizontalLineLabel(
+                                show: true,
+                                labelResolver: (_) =>
+                                    ' ${selectedValue!.toStringAsFixed(0)}',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ])
+                        : ExtraLinesData(horizontalLines: []),
                   ),
                 ),
               ),
             ),
           ),
         ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => FullScreenChart(
+                    barData: barData,
+                  ),
+                ),
+              );
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.white),
+              side: MaterialStateProperty.all(BorderSide(
+                  color: Color(0xFF7EB7A6),
+                  width: 1)), // Border color and width
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(12), // Rounded corner radius
+              )),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                  vertical: 12, horizontal: 24)), // Padding for the button
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.fullscreen,
+                    color: Color(0xFF7EB7A6)), // Icon before text
+                SizedBox(width: 8), // Space between icon and text
+                Text(
+                  "Full Screen",
+                  style: TextStyle(color: Color(0xFF7EB7A6), fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
+}
+
+class FullScreenChart extends StatelessWidget {
+  final List<double> barData;
+
+  FullScreenChart({required this.barData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Full Screen Chart"),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            width: barData.length * 50.0,
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceAround,
+                  barTouchData: BarTouchData(
+                    touchTooltipData: BarTouchTooltipData(
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                        return BarTooltipItem(
+                          'Nilai\n${rod.toY.toStringAsFixed(0)}',
+                          TextStyle(color: Colors.white),
+                        );
+                      },
+                    ),
+                  ),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: true),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: (value, titleMeta) {
+                          return Text(
+                            value.toStringAsFixed(0),
+                            style: TextStyle(fontSize: 10),
+                          );
+                        },
+                        reservedSize: 50,
+                      ),
+                    ),
+                  ),
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black, width: 1),
+                      left: BorderSide(color: Colors.black, width: 1),
+                      right: BorderSide.none,
+                      top: BorderSide.none,
+                    ),
+                  ),
+                  barGroups: barData.asMap().entries.map((entry) {
+                    return BarChartGroupData(
+                      x: entry.key,
+                      barRods: [
+                        BarChartRodData(
+                          toY: entry.value,
+                          color: Color(0xFF7EB7A6),
+                          width: 20,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                  gridData: FlGridData(show: true),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _dataPendapatan() {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "DETAIL PENDAPATAN",
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xff004643),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Column(
+          children: List.generate(10, (index) {
+            return Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Jatikarya 1",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Rerata",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xffA3A3A3),
+                          ),
+                        ),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.grey[300],
+                  thickness: 1,
+                  height: 24,
+                ),
+              ],
+            );
+          }),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _dataTertimbang() {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Golongan",
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff004643),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Column(
+          children: List.generate(10, (index) {
+            // Tentukan warna yang ingin digunakan untuk setiap titik bulat
+            Color circleColor = index.isEven
+                ? Colors.blue
+                : Colors.green; // Contoh warna berbeda
+
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Ganti Icon dengan titik bulat (Container)
+                    Container(
+                      width: 10, // Ukuran diameter titik
+                      height: 10, // Ukuran diameter titik
+                      decoration: BoxDecoration(
+                        color: circleColor, // Ganti warna sesuai index
+                        shape:
+                            BoxShape.circle, // Membuatnya berbentuk lingkaran
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Golongan 1",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff212121),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "KENDARAAN",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFFA3A3A3),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.grey[300],
+                  thickness: 1,
+                  height: 24,
+                ),
+              ],
+            );
+          }),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _dataSegmen() {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Data LHR Persegmen",
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff004643),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Column(
+          children: List.generate(10, (index) {
+            return Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Cimanggis - Jatikarya",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "3,78Km",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffE16162),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "Rerata",
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Color(0xffa3a3a3),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "99.999.999",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff001E1D),
+                      ),
+                    ),
+                    Text(
+                      "99.999.9999",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff001E1D),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Golongan 1
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gol 1",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xffa3a3a3),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Golongan 2
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gol 2",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xffa3a3a3),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Golongan 3
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gol 3",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xffa3a3a3),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Golongan 4
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gol 4",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xffa3a3a3),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Golongan 5
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gol 5",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xffa3a3a3),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "99.999.9999",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff001E1D),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.grey[300],
+                  thickness: 1,
+                  height: 24,
+                ),
+              ],
+            );
+          }),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _buildSegmentGrid() {
+  return SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Legend
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildLegendItem("Off Ramp", Colors.orange),
+              _buildLegendItem("Enterance", Colors.teal),
+              _buildLegendItem("Exit", Colors.red),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Grid Items
+          Column(
+            children: [
+              // Baris pertama
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya 1", "99,999,9999", Colors.orange),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya 2", "99,999,9999", Colors.orange),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Baris kedua
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya U 1", "99,999,9999", Colors.teal),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya U 2", "99,999,9999", Colors.red),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Column(
+            children: [
+              // Baris pertama
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya 1", "99,999,9999", Colors.orange),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya 2", "99,999,9999", Colors.orange),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Baris kedua
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya U 1", "99,999,9999", Colors.teal),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildGridItem(
+                        "Jatikarya U 2", "99,999,9999", Colors.red),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildLegendItem(String label, Color color) {
+  return Row(
+    children: [
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
+      ),
+      const SizedBox(width: 8),
+      Text(
+        label,
+        style: const TextStyle(fontSize: 12, color: Colors.black87),
+      ),
+    ],
+  );
+}
+
+Widget _buildGridItem(String title, String value, Color borderColor) {
+  return Container(
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      border: Border.all(color: borderColor, width: 2),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Row(
+      children: [
+        // Dot
+        Container(
+          width: 10,
+          height: 10,
+          decoration: const BoxDecoration(
+            color: Colors.orange,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 8),
+        // Text Info
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black54,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _cardDownload() {
+  return Padding(
+    padding: const EdgeInsets.all(12.0),
+    child: Card(
+      color: const Color(0xffE4EFEC),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12), // rounded corners
+      ),
+      elevation: 4, // shadow effect
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'DETAIL LAPORAN',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff004643), // Dark teal color for the header
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Silahkan download untuk informasi detail laporan ini atau akses di iomsct.com',
+              style: TextStyle(fontSize: 12, color: Color(0xff004643)),
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerRight, // Align the button to the left
+              child: ElevatedButton(
+                onPressed: () {
+                  // Define your download functionality here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff004643), // Button color
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        8), // rounded corners for the button
+                  ),
+                ),
+                child: const Text(
+                  'DOWNLOAD LAPORAN',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
