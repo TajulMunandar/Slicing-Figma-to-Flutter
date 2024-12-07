@@ -141,7 +141,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: [
           _buildDateNavigator(),
           _buildTotalPendapatanCard(),
-          _chartPendapatan(),
+          _chartPendapatan(context, setState),
         ],
       ),
     );
@@ -755,7 +755,22 @@ class _TransactionScreenState extends State<TransactionScreen> {
     ]),
   ];
 
-  Widget _chartPendapatan() {
+  bool isDropdownOpen = false;
+  bool isSearching = false;
+
+  TextEditingController searchController = TextEditingController();
+
+  List<Map<String, dynamic>> filters = [
+    {"label": "Gerbang Tol 1", "value": false},
+    {"label": "Gerbang Tol 2", "value": false},
+    {"label": "Gerbang Tol 3", "value": false},
+  ];
+
+  int getSelectedCount() {
+    return filters.where((filter) => filter["value"] == true).length;
+  }
+
+  Widget _chartPendapatan(BuildContext context, StateSetter setState) {
     double maxY =
         150000; // Tentukan batas atas sumbu Y lebih tinggi dari data tertinggi
     double minY = 0; // Tentukan batas bawah sumbu Y (bisa disesuaikan)
@@ -764,14 +779,194 @@ class _TransactionScreenState extends State<TransactionScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Text(
             "Grafik Pendapatan",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF004643)),
           ),
         ),
         const SizedBox(
-          height: 20,
+          height: 4,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                isDropdownOpen = !isDropdownOpen;
+                isSearching =
+                    !isSearching; // Mengubah menjadi true agar tampil TextField
+              });
+            },
+            child: Container(
+              width: 200,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFF7EB7A6)),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize:
+                    MainAxisSize.min, // Menambahkan ini agar Row shrink-wrap
+                children: [
+                  // Menampilkan teks atau input pencarian
+                  if (!isSearching)
+                    Text(
+                      "Gerbang Tol",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  if (isSearching)
+                    Flexible(
+                      fit: FlexFit
+                          .loose, // Memberikan fleksibilitas tanpa memaksa
+                      child: Container(
+                        height: 20, // Atur tinggi Container sesuai kebutuhan
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Cari Gerbang...',
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 20, // Atur ukuran ikon
+                            ),
+                            prefixIconConstraints: BoxConstraints(
+                              minWidth: 0, // Mengatur lebar minimum ikon
+                              minHeight: 0, // Mengatur tinggi minimum ikon
+                            ),
+                            border: InputBorder.none,
+                            fillColor: Color(0xFF7EB7A6),
+                            hoverColor: Color(0xFF7EB7A6),
+                          ),
+                          style: TextStyle(
+                            fontSize:
+                                14, // Mengatur ukuran font teks di dalam TextField
+                          ),
+                          onChanged: (text) {
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+                  const SizedBox(width: 4),
+                  // Menampilkan count jika ada item yang dipilih
+                  if (getSelectedCount() > 0)
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '${getSelectedCount()}',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  Icon(
+                    isDropdownOpen
+                        ? Icons.arrow_drop_up
+                        : Icons.arrow_drop_down,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        if (isDropdownOpen)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              "List Gerbang " + "(${getSelectedCount()})",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.grey)),
+                        ),
+                        if (getSelectedCount() > 0)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  filters.forEach(
+                                      (filter) => filter["value"] = false);
+                                });
+                              },
+                              child: Text("Hapus Semua",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.red)),
+                            ),
+                          ),
+                        if (getSelectedCount() == 0)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  filters.forEach(
+                                      (filter) => filter["value"] = true);
+                                });
+                              },
+                              child: Text("Pilih Semua",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: const Color(0xFF004643))),
+                            ),
+                          ),
+                      ],
+                    ),
+                    Divider(), // Divider yang menjadi pemisah
+
+                    // List Filter
+                    Column(
+                      children: filters
+                          .where((filter) => filter["label"]
+                              .toLowerCase()
+                              .contains(searchController.text.toLowerCase()))
+                          .map((filter) {
+                        return CheckboxListTile(
+                          value: filter["value"],
+                          onChanged: (bool? value) {
+                            setState(() {
+                              filter["value"] = value ?? false;
+                            });
+                          },
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(filter["label"]),
+                            ],
+                          ),
+                          activeColor: Color(
+                              0xFF004643), // Warna saat dicentang// Warna latar belakang saat tidak dicentang
+                          tileColor: filter["value"] ? Color(0xFFF1FCF9) : null,
+                          side: BorderSide(color: Color(0xFF004643)),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        const SizedBox(
+          height: 24,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 24.0),
